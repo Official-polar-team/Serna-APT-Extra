@@ -6,4 +6,4 @@ install:
 	cp add-source $(DESTDIR)$(PREFIX)/bin
 
 remove:
-	rm -f $(PREFIX)/bin/add-source
+	rm -f $(DESTDIR)$(PREFIX)/bin/add-source
