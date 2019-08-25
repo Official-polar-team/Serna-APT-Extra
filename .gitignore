@@ -1,7 +1,2 @@
 
 .DS_Store
-release/Serna-APT-Extra_0.0.1_darwin-amd64.deb
-release/Serna-APT-Extra_0.0.1_darwin-amd64/DEBIAN/control
-release/Serna-APT-Extra_0.0.1_darwin-amd64/usr/local/bin/add-source
-release/usr/local/bin/add-source
-release/DEBIAN/control
