@@ -6,14 +6,14 @@ use std::process;
 
 fn main(){
     //Collects the args given by the user on at the time of executing the command
-    let repository_urls: Vec<String> = env::args().collect();
+    let mut repository_urls: Vec<String> = env::args().collect();
 
     //If the repo url contains "http://" then replace it with https://
     if repository_urls[1].contains("http://") && !repository_urls[1].contains("https://") {
     //carreplace_http_with_https
     //If the repo url doesnt contain anything, then replace it with http://, an example "hello" the output would be "https://hello"
     } else if !repository_urls[1].contains("http://") && !repository_urls[1].contains("https://") {
-    let repository_urls = "https://".to_owned() + &repository_urls[1];
+    repository_urls[1] = "https://".to_owned() + &repository_urls[1];
     }
 
     //Adds the word "deb" then grabs the repo url and ads "./" at the end.
