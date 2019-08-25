@@ -11,9 +11,19 @@ fn main(){
     	//If the repo url contains "http://" then replace it with https://
 	    if repository_urls[i + 1].contains("http://") && !repository_urls[i + 1].contains("https://") {
     	repository_urls[i + 1] = repository_urls[i + 1].replace("http://", "https://");
-	    //If the repo url doesnt contain anything, then replace it with http://, an example "hello" the output would be "https://hello"
-    	} else if !repository_urls[i + 1].contains("http://") && !repository_urls[i + 1].contains("https://") {
+	    //If the repo url doesnt contain anything, then replace it with https://, an example "hello" the output would be "https://hello"
+    	} else if !repository_urls[i + 1].contains("http://") && !repository_urls[i + 1].contains("https://") && !repository_urls[i + 1].contains("fpt://") && !repository_urls[i + 1].contains("sfpt://") {
     	repository_urls[i + 1] = "https://".to_owned() + &repository_urls[i + 1];
+    	//Replaces fpt:// with sfpt://
+    	} else if repository_urls[i + 1].contains("fpt://") && !repository_urls[i + 1].contains("sfpt://") {
+    		repository_urls[i + 1] = "sfpt://".to_owned() + &repository_urls[i + 1];
+    	}
+
+    	//Makes sure there's a / at the end of the link to prevent any issues, have to have an empty if statement here because ! can't be used when checking characters.
+    	if repository_urls[i + 1].chars().last().unwrap() == '/' {
+
+    	} else {
+    		repository_urls[i + 1] = repository_urls[i + 1].to_owned() + "/"
     	}
 
 	    //Adds the word "deb" then grabs the repo url and ads "./" at the end.
@@ -31,15 +41,10 @@ fn main(){
     	if let Err(e) = writeln!(source_list, "{}", data_to_add) {
     	    eprintln!("Couldn't write to file: {}", e);
 	    };
-    
-    	//Convert the repo url to a string here, Rust doesn't like convertig vectors to owned
-    	let repo_string = String::from(&repository_urls[i + 1]);
-    	//Repo key dir, takes the string of the repo and converts it to owned, them combines it with the "repokey"
-    	let repo_key_dir = repo_string.to_owned() + "repokey.asc";
     	//Exxecute curl to grab the key and "|" so we can read the output and mix it with apt-key later
-    	Command::new("curl").arg("-Os").arg(repo_key_dir).arg("|");
+    	Command::new("curl").arg("-Os").arg(repository_urls[i + 1].to_owned() + "repokey.asc").arg("|").status().expect("Oof unknown error");
     	//Add the key and do it to dev/null so is silent
-    	Command::new("sudo").arg("apt-key").arg("add").arg("repokey.asc").arg(">/dev/null 2>&1");
+    	Command::new("sudo").arg("apt-key").arg("add").arg("repokey.asc").arg(">/dev/null 2>&1").status().expect("Oof unknown error");
     }
     //Ends the process
     process::exit(0);
