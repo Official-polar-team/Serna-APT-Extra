@@ -10,7 +10,7 @@ fn main(){
     for i in 0 .. repository_urls.len() - 1 {
     	//If the repo url contains "http://" then replace it with https://
 	    if repository_urls[i + 1].contains("http://") && !repository_urls[i + 1].contains("https://") {
-    	//carreplace_http_with_https
+    	repository_urls[i + 1] = repository_urls[i + 1].replace("http://", "https://");
 	    //If the repo url doesnt contain anything, then replace it with http://, an example "hello" the output would be "https://hello"
     	} else if !repository_urls[i + 1].contains("http://") && !repository_urls[i + 1].contains("https://") {
     	repository_urls[i + 1] = "https://".to_owned() + &repository_urls[i + 1];
