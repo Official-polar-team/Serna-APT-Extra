@@ -7,7 +7,13 @@ use std::process;
 fn main(){
     //
     let repo_url: Vec<String> = env::args().collect();
-    
+
+    if repoUrlVector[1].contains("http://") && !repoUrlVector[1].countains("https://") {
+    replace_http_with_https
+    } else if !repoUrlVector[1].contains("http://") && !repoUrlVector[1].countains("https://") {
+    let a = "https://" + repoUrlVector[1]
+    }
+
     let data_to_add = "deb ".to_owned() + &repo_url[1] + " ./";
 
     let mut source_list = OpenOptions::new()
