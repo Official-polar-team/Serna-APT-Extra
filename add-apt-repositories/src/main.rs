@@ -43,7 +43,7 @@ fn main(){
 			//Exxecute curl to grab the key and "|" so we can read the output and mix it with apt-key later
 			Command::new("curl").arg("-Os").arg(repository_urls[i + 1].to_owned() + "repokey.asc").arg("|").status().expect("Oof unknown error");
 			//Add the key and do it to dev/null so is silent
-			Command::new("sudo").arg("apt-key").arg("add").arg("repokey.asc").arg(">/dev/null 2>&1").status().expect("Oof unknown error");
+			Command::new("sudo").arg("apt-key").arg("add").arg("repokey.asc").status().expect("Oof unknown error");
 		}
 		//Refreshes repositories with NovusCLI
 		Command::new("nvs").arg("update").status().expect("Oof unknown error");
