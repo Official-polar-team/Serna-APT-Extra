@@ -16,9 +16,11 @@ fn main(){
 		//If its equal to two, that means not advanced arg was used so call the common repo method.
 		common::add_repo();
 	} else {
+		//If it doesnt contain advanced then just execute the normal method
 		if repository_urls[2] != "--advanced" {
 			common::add_repo();
 		} else if repository_urls[2] == "--advanced" {
+		//Execute advanced repo function since the user decided so.	
 			advanced::add_repo();
 		}
 	}
