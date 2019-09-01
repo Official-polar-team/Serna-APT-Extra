@@ -10,8 +10,10 @@ use std::process;
 
 pub fn add_repo() {
     let mut repository_urls: Vec<String> = env::args().collect();
-    println!("You entered and advanced repository. This means you have extra input that was supplied to you.");
-
+    //This is so user realizes he he did an advanced repository 
+	println!("You entered and advanced repository. This means you have extra input that was supplied to you.");
+    
+	//This are the prompts
     let mut codename: String = rprompt::prompt_reply_stderr("Codename: ").unwrap();
     let mut component: String = rprompt::prompt_reply_stderr("Component: ").unwrap();
 
@@ -38,6 +40,7 @@ pub fn add_repo() {
 				.open("/usr/local/etc/apt/sources.list.d/novus.list")
 				.unwrap();
        
+	   //Write to the file but also, add the white spaces to it works.
        if let Err(e) = writeln!(source_list, "{}", "deb ".to_owned() + &repository_urls[1] + &" ".to_owned() + &codename + &" ".to_owned() + &component) {
 				eprintln!("Couldn't write to file: {}", e);
 			};
