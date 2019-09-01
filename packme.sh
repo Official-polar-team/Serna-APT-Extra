@@ -19,7 +19,7 @@ Version: "$apt_extra_version"
 Architecture: darwin-amd64
 Priority: optional
 Section: Addons
-Maintainer: Diego Magdaleno
+Maintainer: Nikan Radan (SmushyTaco)
 Installed-Size: "$SIZE"
 Depends: apt
 Homepage: https://sernarepo.com
