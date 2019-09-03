@@ -44,7 +44,7 @@ fn main(){
 					eprintln!("Couldn't write to file: {}", e);
 				};
 				//Exxecute curl to grab the key and "|" so we can read the output and mix it with apt-key later
-				Command::new("curl").arg("-Os").arg(repository_urls[i + 2].to_owned() + "repokey.asc").arg("|").status().expect("Oof unknown error");
+				Command::new("curl").arg("-Os").arg(repository_urls[i + 2].to_owned() + "repokey.asc").arg("|").status().expect("Something went wrong.");
 				repository_urls.remove(i + 4);
 				repository_urls.remove(i + 3);
 				repository_urls.remove(i + 2);
@@ -81,14 +81,14 @@ fn main(){
 				Command::new("curl").arg("-Os").arg(repository_urls[i + 1].to_owned() + "repokey.asc").arg("|").status().expect("Oof unknown error");
 			}
 			//Add the key and do it to dev/null so is silent
-			Command::new("sudo").arg("apt-key").arg("add").arg("repokey.asc").status().expect("Oof unknown error");
+			Command::new("sudo").arg("apt-key").arg("add").arg("repokey.asc").status().expect("Something went wrong.");
 			//Stops crash from happening when this finishes running.
 			if i + 1 >= repository_urls.len() - 1 {
 				break;
 			}
 		}
-		//Refreshes repositories with NovusCLI
-		Command::new("nvs").arg("update").status().expect("Oof unknown error");
+		//Refreshes repositories
+		Command::new("sudo").arg("apt").arg("update").status().expect("Something went wrong.");
 		//Ends the process normally
 		process::exit(0);
 	}
