@@ -1,6 +1,6 @@
 #!/bin/zsh 
 
-apt_extra_version=0.0.4 #Change me every release
+apt_extra_version=0.0.5 #Change me every release
 script_full_path=$(dirname "$0")
 
 cd $script_full_path/add-apt-repositories
