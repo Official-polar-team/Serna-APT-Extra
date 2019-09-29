@@ -1,1 +1,2 @@
-package serna_apt_extra
+package aptextra
+
