@@ -1,10 +1,10 @@
-extern crate unicase;
 use std::io::Write;
-use unicase::UniCase;
 use std::env;
 use std::fs::OpenOptions;
 use std::process::Command;
 use std::process;
+mod common;
+mod advanced;
 
 fn main(){
 	//Collects the args given by the user on at the time of executing the command
@@ -12,7 +12,11 @@ fn main(){
 	if repository_urls.len() == 1 {
 		eprintln!("You have to enter at least one repository url!");
 		process::exit(1);
+	} else if repository_urls.len() == 2 {
+		//If its equal to two, that means not advanced arg was used so call the common repo method.
+		common::add_repo();
 	} else {
+<<<<<<< HEAD
 		for i in 0 .. repository_urls.len() - 1 {
 			if (UniCase::new(&repository_urls[i + 1]) == UniCase::new("--advanced") && repository_urls.len() >= i + 5) || (UniCase::new(&repository_urls[i + 1]) == UniCase::new("-a") && repository_urls.len() >= i + 5) {
 				//If the repo url contains "http://" then replace it with https://
@@ -91,5 +95,14 @@ fn main(){
 		Command::new("sudo").arg("apt").arg("update").status().expect("Something went wrong.");
 		//Ends the process normally
 		process::exit(0);
+=======
+		//If it doesnt contain advanced then just execute the normal method
+		if repository_urls[2] != "--advanced" {
+			common::add_repo();
+		} else if repository_urls[2] == "--advanced" {
+		//Execute advanced repo function since the user decided so.	
+			advanced::add_repo();
+		}
+>>>>>>> parent of 90ae618... Multi arg distro support
 	}
 }
